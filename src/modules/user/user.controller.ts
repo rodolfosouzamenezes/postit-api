@@ -5,52 +5,58 @@ import { UserProxy } from './user.proxy';
 
 @Controller('user')
 export class UserController {
+  //CRUD - Create Read Update Delete
+  public listUsers: UserProxy[] = [];
 
-    //CRUD - Create Read Update Delete
-    public listUsers: UserProxy[] = [];
+  @Get('/list')
+  public getUsers(): UserProxy[] {
+    return this.listUsers;
+  }
 
-    @Get('/list')
-    public getUsers(): UserProxy[] {
-        return this.listUsers;
-    }
+  @Get(':userId')
+  public getOneUser(@Param('userId') userId: string): UserProxy {
+    const user = this.listUsers.find((user) => user.id === +userId);
 
-    @Get(':userId')
-    public getOneUser(@Param('userId') userId: string): UserProxy {
-        const user = this.listUsers.find(user => user.id === +userId);
+    if (!user) throw new NotFoundError('Usuário não existe.');
+    return user;
+  }
 
-        if(!user) 
-            throw new NotFoundError('Usuário não existe.');
-        return user;
-    }
+  @Post()
+  public postUser(@Body() user: UserProxy): UserProxy {
+    this.listUsers.push(user);
+    return user;
+  }
 
-    @Post()
-    public postUser(@Body() user: UserProxy): UserProxy {
-        this.listUsers.push(user);
-        return user;
-    }
+  @Put(':userId')
+  public putUser(
+    @Param('userId') userId: string,
+    @Body() user: UserPayload,
+  ): UserProxy {
+    const index = this.listUsers.findIndex((user) => user.id === +userId);
 
-    @Put(':userId')
-    public putUser(@Param('userId') userId: string, @Body() user: UserPayload): UserProxy {
-        const index = this.listUsers.findIndex(user => user.id === +userId);
+    if (index === -1) throw new NotFoundError('Usuário não existe.');
+    this.listUsers[index] = this.getProxyFromPayload(
+      user,
+      this.listUsers[index],
+    );
+    return this.listUsers[index];
+  }
 
-        if(index === -1) 
-            throw new NotFoundError('Usuário não existe.');
-        this.listUsers[index] = this.getProxyFromPayload(user, this.listUsers[index]);
-        return this.listUsers[index];
-    }
+  @Delete(':userId')
+  public deleteUser(@Param('userId') userId: string): void {
+    this.listUsers = this.listUsers.filter((user) => user.id !== +userId);
+    console.log(this.listUsers);
+  }
 
-    @Delete(':userId')
-    public deleteUser(@Param('userId') userId: string): void {
-        this.listUsers = this.listUsers.filter(user => user.id !== +userId);
-        console.log(this.listUsers);
-    }
-
-    private getProxyFromPayload(payload: UserPayload, proxy: UserProxy): UserProxy {
-        return new UserProxy(
-            proxy.id,
-            payload.name || proxy.name,
-            payload.age || proxy.age,
-            proxy.isGraduated,
-        );
-    }
+  private getProxyFromPayload(
+    payload: UserPayload,
+    proxy: UserProxy,
+  ): UserProxy {
+    return new UserProxy(
+      proxy.id,
+      payload.name || proxy.name,
+      payload.age || proxy.age,
+      proxy.isGraduated,
+    );
+  }
 }
