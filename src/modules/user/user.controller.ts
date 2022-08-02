@@ -1,5 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
-import { NotFoundError } from 'rxjs';
+import { Body, Controller, Delete, Get, NotFoundException, Param, Post, Put } from '@nestjs/common';
 import { UserPayload } from './user.payload';
 import { UserProxy } from './user.proxy';
 
@@ -17,7 +16,7 @@ export class UserController {
   public getOneUser(@Param('userId') userId: string): UserProxy {
     const user = this.listUsers.find((user) => user.id === +userId);
 
-    if (!user) throw new NotFoundError('Usuário não existe.');
+    if (!user) throw new NotFoundException('Usuário não existe.');
     return user;
   }
 
@@ -34,7 +33,7 @@ export class UserController {
   ): UserProxy {
     const index = this.listUsers.findIndex((user) => user.id === +userId);
 
-    if (index === -1) throw new NotFoundError('Usuário não existe.');
+    if (index === -1) throw new NotFoundException('Usuário não existe.');
     this.listUsers[index] = this.getProxyFromPayload(
       user,
       this.listUsers[index],
