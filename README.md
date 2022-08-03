@@ -7,14 +7,14 @@
 Api criada para cadastrar os usuários do app postit. 
 ## Instalando
 
-```bash
-$ npm install
+```node
+npm install
 ```
 
 ## Rodando a api
 
-```bash
-$ npm run start:dev
+```npm
+npm run start:dev
 ```
 
 ## Abrindo o Swagger
