@@ -1,8 +1,9 @@
-import { Body, Controller, Delete, Get, NotFoundException, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { ApiBody, ApiOkResponse, ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
 import { UserProxy } from '../models/user.proxy';
-import { UserPayload } from '../models/user.payload';
+import { UpdateUserPayload } from '../models/update-user.payload';
 import { UserService } from '../services/user.service';
+import { CreateUserPayload } from '../models/create-user.payload';
 
 @Controller('user')
 @ApiTags('user')
@@ -27,10 +28,10 @@ export class UserController {
   @ApiOperation({ summary: 'Cadastra um usuário' })
   @ApiOkResponse({ type: UserProxy })
   @ApiBody({
-    type: UserProxy,
+    type: CreateUserPayload,
     description: 'Os dados a serem cadastrados no usuário',
   })
-  public postUser(@Body() user: UserProxy): UserProxy {
+  public postUser(@Body() user: CreateUserPayload): UserProxy {
     return this.service.postUser(user);
   }
 
@@ -39,12 +40,12 @@ export class UserController {
   @ApiOkResponse({ type: UserProxy })
   @ApiParam({ name: 'userId', description: 'O ID do usuário' })
   @ApiBody({
-    type: UserPayload,
+    type: UpdateUserPayload,
     description: 'Os dados a serem atualizados do usuário',
   })
   public putUser(
     @Param('userId') userId: string,
-    @Body() user: UserPayload,
+    @Body() user: UpdateUserPayload,
   ): UserProxy {
     return this.service.putUser(userId, user);
   }
@@ -55,17 +56,5 @@ export class UserController {
   @ApiParam({ name: 'userId', description: 'O ID do usuário' })
   public deleteUser(@Param('userId') userId: string): void {
     this.service.deleteUser(userId);
-  }
-
-  private getProxyFromPayload(
-    payload: UserPayload,
-    proxy: UserProxy,
-  ): UserProxy {
-    return new UserProxy(
-      proxy.id,
-      payload.name || proxy.name,
-      payload.age || proxy.age,
-      proxy.isGraduated,
-    );
   }
 }
