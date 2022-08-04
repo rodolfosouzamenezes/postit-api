@@ -30,3 +30,5 @@ export class CreateUserPayload {
   @IsBoolean({ message: 'O estado da graduação deve ser um valor booleano' })
   public isGraduated: boolean;
 }
+
+//1:53
