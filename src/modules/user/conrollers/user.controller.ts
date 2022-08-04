@@ -1,5 +1,5 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
-import { ApiBody, ApiOkResponse, ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
+import { ApiBody, ApiOkResponse, ApiOperation, ApiParam, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { UserProxy } from '../models/user.proxy';
 import { UpdateUserPayload } from '../models/update-user.payload';
 import { UserService } from '../services/user.service';
@@ -12,9 +12,14 @@ export class UserController {
   @Get('/list')
   @ApiOperation({ summary: 'Obtém os dados de todos os usuários' })
   @ApiOkResponse({ type: UserProxy, isArray: true })
-  public getUsers(): Promise<UserProxy[]> {
+  @ApiQuery({
+    name: 'search',
+    description: 'A busca a ser realizada',
+    required: false,
+  })
+  public getUsers(@Query('search') search: string): Promise<UserProxy[]> {
     return this.service
-      .getUsers()
+      .getUsers(search)
       .then((result) => result.map((entity) => new UserProxy(entity)));
   }
 
