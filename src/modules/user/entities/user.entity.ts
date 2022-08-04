@@ -8,7 +8,7 @@ export class UserEntity {
   @Column({ length: 150 })
   public name: string;
 
-  @Column({ length: 150 })
+  @Column({ length: 150, unique: true })
   public email: string;
 
   @Column({ length: 80 })
@@ -24,5 +24,5 @@ export class UserEntity {
   public createdAt: Date;
 
   @UpdateDateColumn()
-  public updateAt: Date;
+  public updatedAt: Date;
 }

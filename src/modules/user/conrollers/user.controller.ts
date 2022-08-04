@@ -12,16 +12,20 @@ export class UserController {
   @Get('/list')
   @ApiOperation({ summary: 'Obtém os dados de todos os usuários' })
   @ApiOkResponse({ type: UserProxy, isArray: true })
-  public getUsers(): UserProxy[] {
-    return this.service.getUsers();
+  public getUsers(): Promise<UserProxy[]> {
+    return this.service
+      .getUsers()
+      .then((result) => result.map((entity) => new UserProxy(entity)));
   }
 
   @Get(':userId')
   @ApiOperation({ summary: 'Obtém um usuário pela ID' })
   @ApiOkResponse({ type: UserProxy })
   @ApiParam({ name: 'userId', description: 'O ID do usuário' })
-  public getOneUser(@Param('userId') userId: string): UserProxy {
-    return this.service.getOneUser(userId);
+  public getOneUser(@Param('userId') userId: string): Promise<UserProxy> {
+    return this.service
+      .getOneUser(userId)
+      .then((entity) => new UserProxy(entity));
   }
 
   @Post()
@@ -31,8 +35,8 @@ export class UserController {
     type: CreateUserPayload,
     description: 'Os dados a serem cadastrados no usuário',
   })
-  public postUser(@Body() user: CreateUserPayload): UserProxy {
-    return this.service.postUser(user);
+  public postUser(@Body() user: CreateUserPayload): Promise<UserProxy> {
+    return this.service.postUser(user).then((entity) => new UserProxy(entity));
   }
 
   @Put(':userId')
@@ -46,8 +50,10 @@ export class UserController {
   public putUser(
     @Param('userId') userId: string,
     @Body() user: UpdateUserPayload,
-  ): UserProxy {
-    return this.service.putUser(userId, user);
+  ): Promise<UserProxy> {
+    return this.service
+      .putUser(userId, user)
+      .then((entity) => new UserProxy(entity));
   }
 
   @Delete(':userId')
