@@ -29,7 +29,7 @@ export class UserController {
   @ApiParam({ name: 'userId', description: 'O ID do usuário' })
   public getOneUser(@Param('userId') userId: string): Promise<UserProxy> {
     return this.service
-      .getOneUser(userId)
+      .getOneUser(+userId)
       .then((entity) => new UserProxy(entity));
   }
 
