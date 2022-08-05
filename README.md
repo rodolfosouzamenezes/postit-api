@@ -19,16 +19,20 @@ npm run start:dev
 
 ## Abrindo o Swagger
 Por padrão a api é aberta na porta [http://localhost:3000](http://localhost:3000), para entrar no [Swagger](https://swagger.io) basta adicionar [http://localhost:3000/swagger/](http://localhost:3000/swagger/) na url.
-<!--## Test
 
-```bash
-# unit tests
-$ npm run test
+## Criando as variáveis de ambiente
+Crie um arquivo __.env__ na raiz/root do seu projeto, e adicione as seguintes variáveis:
 
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+Escolha a sua porta
+```js
+PORT=3000 
 ```
--->
+Gere o seu JWT para autenticação no site [UUID Generator](https://www.uuidgenerator.net)
+```js
+JWT_KEY= coloque-seu-jwt-aqui 
+```
+
+Coloque true para exibir os comandos SQL no console
+```js
+DATABASE_LOGGING=false
+```
