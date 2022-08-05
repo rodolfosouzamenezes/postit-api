@@ -12,6 +12,7 @@ async function bootstrap() {
     .setTitle('Bootcamp LIGA')
     .setDescription('API do Postit')
     .setVersion('1.0')
+    .addBearerAuth()
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
