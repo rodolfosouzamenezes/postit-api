@@ -13,7 +13,7 @@ import { User } from 'src/decorators/user/user.decorator';
 export class UserController {
   constructor(private readonly service: UserService) {}
   @ProtectTo()
-  @Get('/list')
+  @Get()
   @ApiOperation({ summary: 'Obtém os dados de todos os usuários' })
   @ApiOkResponse({ type: UserProxy, isArray: true })
   @ApiQuery({
@@ -68,6 +68,7 @@ export class UserController {
       .then((entity) => new UserProxy(entity));
   }
 
+  @ProtectTo()
   @Delete(':userId')
   @ApiOperation({ summary: 'Deleta um usuário' })
   @ApiOkResponse()
