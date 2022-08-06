@@ -37,9 +37,9 @@ export class NoteController {
   @Get('feed')
   @ApiOperation({ summary: 'Obtém as notas publicas' })
   @ApiOkResponse({ type: NoteProxy, isArray: true })
-  public getPublic(): Promise<NoteProxy[]> {
+  public getPublic(@User() requestUser: UserEntity): Promise<NoteProxy[]> {
     return this.service
-      .getPublic()
+      .getPublic(requestUser)
       .then((result) => result.map((entity) => new NoteProxy(entity)));
   }
 

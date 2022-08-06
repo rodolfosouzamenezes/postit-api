@@ -12,6 +12,7 @@ export class NoteProxy {
     this.createdAt = entity.createdAt;
     this.updatedAt = entity.updatedAt;
     this.userId = entity.userId;
+    this.hasLiked = false;
 
     if (entity.user) this.user = new UserProxy(entity.user);
 
@@ -19,6 +20,8 @@ export class NoteProxy {
       this.comments = entity.comments.map(
         (comment) => new NoteCommentProxy(comment),
       );
+
+    if (entity.likes && entity.likes.length > 0) this.hasLiked = true;
   }
 
   @ApiProperty()
@@ -41,6 +44,9 @@ export class NoteProxy {
 
   @ApiProperty()
   public userId: number;
+
+  @ApiProperty()
+  public hasLiked: boolean;
 
   @ApiPropertyOptional({ type: () => UserProxy })
   public user?: UserProxy;
