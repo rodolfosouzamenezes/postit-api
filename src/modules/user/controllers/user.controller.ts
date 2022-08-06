@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
 import { ApiBody, ApiOkResponse, ApiOperation, ApiParam, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { UserProxy } from '../models/user.proxy';
 import { UpdateUserPayload } from '../models/update-user.payload';
@@ -38,7 +38,6 @@ export class UserController {
       .then((entity) => new UserProxy(entity));
   }
 
-  @ProtectTo()
   @Post()
   @ApiOperation({ summary: 'Cadastra um usuário' })
   @ApiOkResponse({ type: UserProxy })
@@ -69,12 +68,14 @@ export class UserController {
       .then((entity) => new UserProxy(entity));
   }
 
-  @ProtectTo()
   @Delete(':userId')
   @ApiOperation({ summary: 'Deleta um usuário' })
   @ApiOkResponse()
   @ApiParam({ name: 'userId', description: 'O ID do usuário' })
-  public deleteUser(@Param('userId') userId: string): void {
-    this.service.deleteUser(userId);
+  public deleteUser(
+    @User() requestUser: UserEntity,
+    @Param('userId') userId: string,
+  ): void {
+    this.service.deleteUser(requestUser, userId);
   }
 }
