@@ -35,7 +35,7 @@ export class NoteLikeController {
   @ProtectTo()
   @Delete(':noteId/like')
   @ApiOperation({ summary: 'Remove a curtida de uma nota' })
-  public deleteOne(
+  public removeOne(
     @User() requestUser: UserEntity,
     @Param('noteId') noteId: string,
   ): Promise<void> {

@@ -76,7 +76,7 @@ export class UserController {
   public deleteUser(
     @User() requestUser: UserEntity,
     @Param('userId') userId: string,
-  ): void {
-    this.service.deleteUser(requestUser, userId);
+  ): Promise<void> {
+    return this.service.deleteUser(requestUser, userId);
   }
 }
