@@ -1,4 +1,6 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { NoteCommentEntity } from 'src/modules/note-comment/entities/note-comment.entity';
+import { NoteEntity } from 'src/modules/note/entities/note.entity';
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
 @Entity('users')
 export class UserEntity {
@@ -25,4 +27,10 @@ export class UserEntity {
 
   @UpdateDateColumn()
   public updatedAt: Date;
+
+  @OneToMany(() => NoteEntity, (entity) => entity.user)
+  public notes?: NoteEntity[];
+
+  @OneToMany(() => NoteCommentEntity, (entity) => entity.user)
+  public noteComments?: NoteCommentEntity[];
 }

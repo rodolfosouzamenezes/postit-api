@@ -34,6 +34,9 @@ export class NoteService {
       },
       relations: {
         user: true,
+        comments: {
+          user: true,
+        },
       },
     });
   }
@@ -46,6 +49,11 @@ export class NoteService {
       },
       order: {
         updatedAt: 'DESC',
+      },
+      relations: {
+        comments: {
+          user: true,
+        },
       },
     });
   }
@@ -60,6 +68,9 @@ export class NoteService {
       },
       relations: {
         user: true,
+        comments: {
+          user: true,
+        },
       },
     });
 

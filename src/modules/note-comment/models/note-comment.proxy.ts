@@ -31,9 +31,9 @@ export class NoteCommentProxy {
   @ApiProperty()
   public noteId: number;
 
-  @ApiPropertyOptional({ type: UserProxy })
+  @ApiPropertyOptional({ type: () => UserProxy })
   public user?: UserProxy;
 
-  @ApiPropertyOptional({ type: NoteProxy })
+  @ApiPropertyOptional({ type: () => NoteProxy })
   public note?: NoteProxy;
 }
