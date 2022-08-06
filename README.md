@@ -17,7 +17,7 @@ npm install
 npm run start:dev
 ```
 
-## Abrindo o Swagger
+## Abrindo o Swagger localmente
 Por padrão a api é aberta na porta [http://localhost:3000](http://localhost:3000), para entrar no [Swagger](https://swagger.io) basta adicionar [http://localhost:3000/swagger/](http://localhost:3000/swagger/) na url.
 
 ## Criando as variáveis de ambiente
@@ -34,5 +34,19 @@ JWT_KEY= coloque-seu-jwt-aqui
 
 Coloque true para exibir os comandos SQL no console
 ```js
-DATABASE_LOGGING=false
+DATABASE_LOGGING= false
 ```
+
+Adicionando a conexão com Heroku
+```js
+DATABASE_URL= coloque-sua-url-aqui
+```
+
+## Configurando o Heroku
+Faça o deploy  no heroku, em seguida vá em "Settings > Config Vars" e adicione a seguinte váriavél de ambiente:
+
+```js
+JWT_KEY= coloque-seu-jwt-aqui 
+```
+
+Para vizualizar o seu projeto é só colocar "/swagger" no final da sua url.
