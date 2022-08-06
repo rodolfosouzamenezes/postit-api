@@ -9,8 +9,8 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
 
   const config = new DocumentBuilder()
-    .setTitle('Bootcamp LIGA')
-    .setDescription('API do Postit')
+    .setTitle('Postit API')
+    //.setDescription('API do Postit')
     .setVersion('1.0')
     .addBearerAuth()
     .build();
