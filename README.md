@@ -4,7 +4,8 @@
 </p>
 
 ## Descrição
-Api criada para cadastrar os usuários do app postit. 
+Api criada para cadastrar os usuários do app postit, que foi um projeto realizado durante o Bootcamp do LIGA FACENS.
+Nós usamos como base este [modelo conceitual](https://lucid.app/lucidchart/b75a4049-ab73-4240-ae5d-9a4a59b204c9/edit?page=0_0&invitationId=inv_a33eb8ef-ce86-457a-a611-c710c63de62e#).
 ## Instalando
 
 ```node
