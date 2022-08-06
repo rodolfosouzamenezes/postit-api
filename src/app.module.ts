@@ -10,6 +10,7 @@ import { UserModule } from './modules/user/user.module';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
+      //Postgress
       type: 'postgres',
       url: enviroment.DATABASE_URL,
       autoLoadEntities: true,
@@ -21,6 +22,15 @@ import { UserModule } from './modules/user/user.module';
           rejectUnauthorized: false,
         },
       },
+
+      /*
+        //SQLite
+        type: 'sqlite',
+        database: 'test.db',
+        autoLoadEntities: true,
+        synchronize: true,
+        logging: enviroment.DATABASE_LOGGING === 'true',
+      */
     }),
     UserModule,
     AuthModule,
