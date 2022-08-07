@@ -14,7 +14,7 @@ export class UserController {
   constructor(private readonly service: UserService) {}
   @ProtectTo()
   @Get()
-  @ApiOperation({ summary: 'Obtém os dados de todos os usuários' })
+  @ApiOperation({ summary: 'Obtém os dados de todos os usuários e pesquisa pelo nome' })
   @ApiOkResponse({ type: UserProxy, isArray: true })
   @ApiQuery({
     name: 'search',
