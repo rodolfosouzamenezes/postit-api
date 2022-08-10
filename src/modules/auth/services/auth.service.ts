@@ -17,7 +17,7 @@ export class AuthService {
     passwordInPlainText: string,
   ): Promise<UserEntity> {
     const user = await this.userServise.getRepository().findOneBy({ email });
-    if (!user) throw new BadRequestException('Usuário ou senha inválidos');
+    if (!user) throw new BadRequestException('Email ou senha inválidos');
 
     const isPasswordValid = await bcryptjs.compare(
       passwordInPlainText,
@@ -25,7 +25,7 @@ export class AuthService {
     );
 
     if (!isPasswordValid)
-      throw new BadRequestException('Usuário ou senha inválidos');
+      throw new BadRequestException('Email ou senha inválidos');
 
     return user;
   }
