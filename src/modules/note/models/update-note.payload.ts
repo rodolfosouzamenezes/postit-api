@@ -14,8 +14,14 @@ export class UpdateNotePayload {
   @ApiPropertyOptional()
   @IsOptional()
   @IsString({ message: 'O corpo da nota deve ser uma string' })
-  @IsNotEmpty({ message: 'O copor da nota não pode ser vazio' })
+  @IsNotEmpty({ message: 'O corpo da nota não pode ser vazio' })
   public annotation?: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString({ message: 'A cor da nota deve ser uma string' })
+  @IsNotEmpty({ message: 'A cor da nota não pode ser vazio' })
+  public color?: string;
 
   @ApiPropertyOptional()
   @IsOptional()
