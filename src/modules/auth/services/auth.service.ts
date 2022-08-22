@@ -36,7 +36,7 @@ export class AuthService {
     };
     const token = await this.jwtServise.signAsync(payload, { expiresIn: '1d' });
 
-    return new TokenProxy(token);
+    return new TokenProxy(token, user.id);
   }
 
   public async validateJwt(payload: JwtPayload): Promise<UserEntity> {
